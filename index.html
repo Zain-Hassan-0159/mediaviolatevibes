@@ -24,6 +24,58 @@
             font-family: Roboto, sans-serif;
         }
     </style>
+
+    <style>
+        .accept-checkbox {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+        user-select: none;
+        float: left;
+        margin: 0 5px 100px 0;
+        }
+
+        .accept-checkbox .accept-checkmark {
+        height: 20px;
+        width: 20px;
+        background-color: #eee;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        display: inline-block;
+        vertical-align: middle;
+        }
+
+        .accept-checkbox .accept-checkmark:after {
+        content: "";
+        display: none;
+        width: 8px;
+        height: 12px;
+        border: solid #333;
+        border-width: 0 2px 2px 0;
+        transform: translate(-50%, -50%) rotate(45deg);
+        position: absolute;
+        top: 9px;
+        left: 10px;
+        }
+
+        .accept-checkbox.checked .accept-checkmark:after {
+        display: block;
+        }
+
+        [type=submit]:disabled {
+            cursor: not-allowed;
+            filter: brightness(75%);
+        }
+
+        .form-footer {
+            padding-top: 20px;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 150%;
+            color: #222;
+            font-family: Roboto,sans-serif;
+        }
+    </style>
     <link rel="stylesheet" href="assets/css/index.css">
 </head>
 
@@ -686,6 +738,15 @@
                                             <div class="gaff">
                                                 <!-- f -->
                                             </div>
+                                            <div class="form-footer" style="text-align: left;">
+                                                <div class="accept-checkbox" id="accept-checkbox">
+                                                    <div class="accept-checkmark"></div>
+                                                </div> 
+                                                بالتسجيل وإنشاء حساب، فإنك تقر بأنك قد قرأت ووافقت على 
+                                                <a href="chat_gpt_en_terms.html" target="_blank">الشروط والأحكام</a> 
+                                                و 
+                                                <a href="chat_gpt_en_privacy_policy.html" target="_blank">سياسة الخصوصية</a>.
+                                            </div>                                            
                                         </div>
                                     </div>
                                 </div>
@@ -3072,6 +3133,15 @@
             $('html, body').animate({
                 scrollTop: $("#registerForm").offset().top
             }, 500);
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('button[type=submit]').prop('disabled', true);
+            $('#accept-checkbox').click(function() {
+                $(this).toggleClass('checked');
+                $('button[type=submit]').prop('disabled', !$(this).hasClass('checked'));
+            });
         });
     </script>
 
